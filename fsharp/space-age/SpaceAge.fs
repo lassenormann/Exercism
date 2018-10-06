@@ -12,7 +12,7 @@ type Planet =
 
 let secondsPerEarthYear = 31557600.0
 
-let orbitalPeriodInEarthYears (planet:Planet) = 
+let orbitalPeriodInEarthYears planet = 
     match planet with
     | Mercury -> 0.2408467
     | Venus -> 0.61519726
@@ -23,6 +23,12 @@ let orbitalPeriodInEarthYears (planet:Planet) =
     | Neptune -> 164.79132
     | _ -> 1.0
 
-let age (planet: Planet) (seconds: int64): float = 
+let age' (planet: Planet) (seconds: int64): float = 
     let orbitalPeriodSeconds = orbitalPeriodInEarthYears planet * secondsPerEarthYear
     (float seconds) / orbitalPeriodSeconds
+    
+let age planet (seconds:int64) = 
+    planet
+    |> orbitalPeriodInEarthYears
+    |> (*) secondsPerEarthYear
+    |> (/) (float seconds)    
