@@ -1,7 +1,10 @@
 ﻿module Raindrops
 let drops = [(3,"Pling");(5,"Plang");(7,"Plong")]
 
-let dropName' number (factor, name)  =  if number % factor = 0 then name else ""
+let dropName' number (factor, name)  =  
+    if number % factor = 0 
+    then name 
+    else ""
 
 let dropName number drop =
     match drop with
