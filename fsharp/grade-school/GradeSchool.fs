@@ -3,21 +3,8 @@
 type Student = string
 type Grade = int
 type School = Map<Grade, Student list>
-
 let empty: School = Map.empty
-
-let add (student: Student) (grade: Grade) (school: School): School = 
-    match school.TryFind grade with
-        | Some students -> 
-            school 
-            |> Map.remove grade 
-            |> Map.add grade (student::students)
-        | None -> 
-            school 
-            |> Map.add grade [student]
-
 let studentSorter = List.sort
-
 let noStudents: Student list = List.empty
 
 let roster' (school: School): Student list = 
@@ -27,10 +14,9 @@ let roster' (school: School): Student list =
         |> List.sortBy (fun (grade,_) -> grade)
         |> List.map (fun (_, students) -> students |> studentSorter)
         |> List.reduce List.append
-    match school.IsEmpty with
+    match school |> Map.isEmpty with
         | true -> noStudents
         | _ -> rosterOf school
-
 
 let mapToSortedLists = 
     Map.toList
@@ -43,6 +29,16 @@ let roster (school: School): Student list =
         | true  -> noStudents
         
 let grade (number: Grade) (school: School): Student list = 
-    match school.TryFind number with
-    | Some students -> students |> studentSorter
+    match school |> Map.tryFind number with
+    | Some students -> students 
     | None          -> noStudents
+    |> studentSorter
+
+let add' (student: Student) (grade: Grade) (school: School): School = 
+    match school.TryFind grade with
+        | Some students -> school |> Map.add grade (student::students)
+        | None ->  school |> Map.add grade [student]    
+
+let add student grd school = 
+    let students = student::(grade grd school)
+    school |> Map.add grd students
