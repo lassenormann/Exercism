@@ -12,3 +12,7 @@ bin
 /build/
 *.exe
 !.paket/paket.bootstrapper.exe
+
+### typescript ###
+node_modules/
+.node_modules/
