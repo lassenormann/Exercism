@@ -10,6 +10,19 @@ export type color =
   | "grey"
   | "white";
 
+const colorValues: Record<color, number> = {
+  black: 0,
+  brown: 1,
+  red: 2,
+  orange: 3,
+  yellow: 4,
+  green: 5,
+  blue: 6,
+  violet: 7,
+  grey: 8,
+  white: 9,
+};
+
 export class ResistorColor {
   private colors: color[];
 
@@ -22,42 +35,6 @@ export class ResistorColor {
 
   value = (): number => {
     const [digit1, digit2] = this.colors;
-    return this.getValue(digit1) * 10 + this.getValue(digit2);
+    return colorValues[digit1] * 10 + colorValues[digit2];
   };
-
-  private getValue(color: color): number {
-    switch (color) {
-      case "black":
-        return 0;
-      case "brown":
-        return 1;
-      case "red":
-        return 2;
-      case "orange":
-        return 3;
-      case "yellow":
-        return 4;
-      case "green":
-        return 5;
-      case "blue":
-        return 6;
-      case "violet":
-        return 7;
-      case "grey":
-        return 8;
-      case "white":
-        return 9;
-    }
-  }
 }
-
-// Black: 0
-// Brown: 1
-// Red: 2
-// Orange: 3
-// Yellow: 4
-// Green: 5
-// Blue: 6
-// Violet: 7
-// Grey: 8
-// White: 9
